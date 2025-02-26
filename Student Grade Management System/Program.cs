@@ -1,112 +1,135 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
-class Program
+class StudentGradeManagementSystem
 {
-    static void Main()
-    {
-        
-        Dictionary<string, int> students = new Dictionary<string, int>();
+    // Dictionary to store student names (keys) and their grades (values)
+    static Dictionary<string, int> students = new Dictionary<string, int>();
 
+    static void Main(string[] args)
+    {
+        // Main menu loop
         while (true)
         {
-            // Display menu
-            Console.WriteLine("\nStudent Grade Management System");
-            Console.WriteLine("1. Add Student");
-            Console.WriteLine("2. Display All Students");
-            Console.WriteLine("3. Search for a Student");
-            Console.WriteLine("4. Calculate Average Grade");
-            Console.WriteLine("5. Find Highest and Lowest Grades");
-            Console.WriteLine("6. Exit");
-            Console.Write("Choose an option: ");
+            DisplayMenu();
+            Console.Write("Select an option: ");
             string choice = Console.ReadLine();
 
-            if (choice == "1") 
+            switch (choice)
             {
-                Console.Write("Enter student name: ");
-                string name = Console.ReadLine();
-                Console.Write("Enter student grade (0-100): ");
-                try
-                {
-                    int grade = int.Parse(Console.ReadLine());
-                    if (grade < 0 || grade > 100)
-                    {
-                        Console.WriteLine("Grade must be between 0 and 100. Try again.");
-                    }
-                    else
-                    {
-                        students[name] = grade;
-                        Console.WriteLine("Student added successfully!");
-                    }
-                }
-                catch
-                {
-                    Console.WriteLine("Invalid input. Please enter a number for the grade.");
-                }
-            }
-            else if (choice == "2") 
-            {
-                if (students.Count == 0)
-                {
-                    Console.WriteLine("No students found.");
-                }
-                else
-                {
-                    Console.WriteLine("\nList of Students:");
-                    foreach (var student in students)
-                    {
-                        Console.WriteLine($"{student.Key}: {student.Value}");
-                    }
-                }
-            }
-            else if (choice == "3") 
-            {
-                Console.Write("Enter student name to search: ");
-                string name = Console.ReadLine();
-                if (students.ContainsKey(name))
-                {
-                    Console.WriteLine($"{name}'s grade is {students[name]}");
-                }
-                else
-                {
-                    Console.WriteLine("Student not found.");
-                }
-            }
-            else if (choice == "4") 
-            {
-                if (students.Count == 0)
-                {
-                    Console.WriteLine("No students found.");
-                }
-                else
-                {
-                    double average = students.Values.Average();
-                    Console.WriteLine($"Average grade is {average:F2}");
-                }
-            }
-            else if (choice == "5") 
-            {
-                if (students.Count == 0)
-                {
-                    Console.WriteLine("No students found.");
-                }
-                else
-                {
-                    int highest = students.Values.Max();
-                    int lowest = students.Values.Min();
-                    Console.WriteLine($"Highest grade is {highest}, Lowest grade is {lowest}");
-                }
-            }
-            else if (choice == "6") 
-            {
-                Console.WriteLine("Exiting the program. Goodbye!");
-                break;
-            }
-            else 
-            {
-                Console.WriteLine("Invalid option. Please choose a number from 1 to 6.");
+                case "1":
+                    AddStudent();
+                    break;
+                case "2":
+                    DisplayAllStudents();
+                    break;
+                case "3":
+                    SearchStudent();
+                    break;
+                case "4":
+                    CalculateAverageGrade();
+                    break;
+                case "5":
+                    FindHighestAndLowestGrades();
+                    break;
+                case "6":
+                    Console.WriteLine("Exiting the program. Goodbye!");
+                    return;
+                default:
+                    Console.WriteLine("Invalid option. Please try again.");
+                    break;
             }
         }
+    }
+
+    // Display the main menu
+    static void DisplayMenu()
+    {
+        Console.WriteLine("\n1. Add Student");
+        Console.WriteLine("2. Display All Students");
+        Console.WriteLine("3. Search for a Student");
+        Console.WriteLine("4. Calculate Average Grade");
+        Console.WriteLine("5. Find Highest and Lowest Grades");
+        Console.WriteLine("6. Exit");
+    }
+
+    // Add a student to the dictionary
+    static void AddStudent()
+    {
+        Console.Write("Enter student name: ");
+        string name = Console.ReadLine();
+
+        Console.Write("Enter student grade: ");
+        if (int.TryParse(Console.ReadLine(), out int grade))
+        {
+            students[name] = grade; // Add or update the student's grade
+            Console.WriteLine("Student added successfully!");
+        }
+        else
+        {
+            Console.WriteLine("Invalid grade input. Please enter a valid integer.");
+        }
+    }
+
+    // Display all students and their grades
+    static void DisplayAllStudents()
+    {
+        if (students.Count == 0)
+        {
+            Console.WriteLine("No students found.");
+            return;
+        }
+
+        Console.WriteLine("\nStudents and their grades:");
+        foreach (var student in students)
+        {
+            Console.WriteLine($"{student.Key}: {student.Value}");
+        }
+    }
+
+    // Search for a student by name
+    static void SearchStudent()
+    {
+        Console.Write("Enter student name to search: ");
+        string name = Console.ReadLine();
+
+        if (students.ContainsKey(name))
+        {
+            Console.WriteLine($"{name}'s grade is {students[name]}.");
+        }
+        else
+        {
+            Console.WriteLine("Student not found.");
+        }
+    }
+
+    // Calculate the average grade of all students
+    static void CalculateAverageGrade()
+    {
+        if (students.Count == 0)
+        {
+            Console.WriteLine("No students found to calculate average.");
+            return;
+        }
+
+        double average = students.Values.Average();
+        Console.WriteLine($"The average grade is: {average:F2}");
+    }
+
+    // Find the highest and lowest grades
+    static void FindHighestAndLowestGrades()
+    {
+        if (students.Count == 0)
+        {
+            Console.WriteLine("No students found.");
+            return;
+        }
+
+        int highestGrade = students.Values.Max();
+        int lowestGrade = students.Values.Min();
+
+        Console.WriteLine($"Highest grade: {highestGrade}");
+        Console.WriteLine($"Lowest grade: {lowestGrade}");
     }
 }
