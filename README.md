@@ -1,2 +1,5 @@
-Tap on the link first, and it will take you directly to the file, you click on students' grade management system, and you will see different files, where you will have to double tap on the student's grade management which will take you directly to the same name of the file that we have previously opened like twice, then this time around, there will be multiple options that are different from the ones provided before, then you double tap on the bin, then also double tap on debug that will pop up, then double tap on the net9.0 that pops up, after this process you will see, multiple options, tap on the one that has student's grade manage meant system (application) it will automatically refer you to the command promote, where you will have to test the instructions of the assignment given to you.
-YouTube video link : https://youtu.be/2Z1dJLFJifQ?si=9BXqsHkPnnEN3L4D/
+Student Grade Management System: A C# console app to manage student grades. Features include: 1. Add Student 2. Display All Students 3. Search for a Student 4. Calculate Average Grade 5. Find the Highest and Lowest Grades 6. Exit
+Select an option: 1
+Enter student name: John
+Enter student grade: 85
+Student added successfully!
